@@ -1,0 +1,41 @@
+.container {
+    
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  .section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    
+  }
+  
+  .wave {
+    display: block;
+    width: 100%;
+    height: 100px;
+    color: "#ad2472";
+    
+  }
+  
+ 
+  @keyframes wave {
+    0% {
+        d: path("M 0 16.559 C 128 6.429 128 6.429 256 11.493 C 384 16.559 384 16.559 512 12.4 C 640 8.243 640 8.243 768 11.104 L 768 4700.777 L 0 4700.777 Z");
+    }
+    50% {
+        d: path("M 0 20 C 128 10 128 10 256 15 C 384 20 384 20 512 15 C 640 10 640 10 768 15 L 768 4700.777 L 0 4700.777 Z");
+    }
+    100% {
+        d: path("M 0 16.559 C 128 6.429 128 6.429 256 11.493 C 384 16.559 384 16.559 512 12.4 C 640 8.243 640 8.243 768 11.104 L 768 4700.777 L 0 4700.777 Z");
+    }
+}
+
+.featured-news-wave {
+    animation: wave 5s infinite;
+}
