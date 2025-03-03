@@ -1,11 +1,12 @@
 "use client"
 import { useParams } from "next/navigation";
-import Chat from "@/components/webSocket";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { obtenerPelicula } from "@/services/peliculas/api";
 import { usePelicula } from "@/contexts/PeliculaContext";
 import { useRouter } from "next/navigation";
 import JuegoBase from "@/components/juego/juegoBase";
+import Footer from "@/components/landing/footer";
+import styles from "@/styles/Home.module.css";
 const ChatRoom = () => {
   const { setPelicula } = usePelicula();
   const params = useParams();
@@ -50,7 +51,7 @@ const ChatRoom = () => {
 
 
      
-
+     
 
     </div>
 

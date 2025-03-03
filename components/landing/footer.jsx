@@ -37,7 +37,7 @@ const Footer = () => {
 		<section
 			className="ezy__cta1 light relative py-14 md:py-24 overflow-hidden bg-white dark:bg-[#0b1727] text-gray-800 dark:text-white"
 			style={{
-				background: "linear-gradient(131deg, #ff9d66, #ff4e53);",
+				background: "linear-gradient(131deg, #ff9d66, #ff4e53)",
 			}}
 		>
 			<TopShape />

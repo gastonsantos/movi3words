@@ -1,12 +1,14 @@
-import PropTypes from "prop-types";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
-import Chat from "@/components/webSocket";
 import { obtenerPelicula } from "@/services/peliculas/api";
 import { usePelicula } from "@/contexts/PeliculaContext";
 import { useRouter } from "next/navigation";
+import ImageSlider from "@/components/juego/ImageSlider";
+import ModalAdivinar from "@/components/juego/modalAdivinar";
+import Footer from "@/components/landing/footer";
+import styles from "@/styles/Home.module.css";
 const JuegoBase = ({ pelicula, roomId }) => {
 	const router = useRouter();
 	const { setPelicula } = usePelicula();
@@ -14,14 +16,16 @@ const JuegoBase = ({ pelicula, roomId }) => {
 	const [visible, setVisible] = useState(false);
 	const [visibleGenero, setVisibleGenero] = useState(false);
 	const [visibleSinopsis, setVisibleSinopsis] = useState(false);
-
+	const [imagenes, setImagenes] = useState([]);
 	useEffect(() => {
 		console.log("QUE trae Pelicula", pelicula)
-		if (!pelicula) {
-			// Si no hay película en el contexto, redirigir de vuelta a la sala principal
-			//router.push("/page/sala-principal");
-
+		if (!pelicula || !pelicula.imagenes) {
+			
+			return;
 		}
+
+		setImagenes(pelicula.imagenes);
+		console.log("QUe tiene el setImagenes", imagenes)
 	}, [pelicula, router]);
 
 	const handleBuscarPelicula = async () => {
@@ -42,20 +46,23 @@ const JuegoBase = ({ pelicula, roomId }) => {
 
 	}
 	return (
-		<section className="ezy__about9 light py-6 md:py-6 bg-white dark:bg-[#0b1727] text-zinc-900 dark:text-white">
+		<section className="min-h-dvh  relative ezy__about9 light py-6 md:py-6 bg-cover bg-no-repeat text-zinc-900 dark:text-white"
+		style={{ backgroundImage: "url('/image/Fondo.webp')" }}
+		>
+			 <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
 			<div className="container px-4">
 				<div className="grid grid-cols-12 items-center gap-4 mb-12">
 					<div className="col-span-12 lg:col-span-6 h-full  items-center justify-center relative">
-						<h6 className="font-medium opacity-70 mb-2">Hola, bienvenido a la Cartelera!!</h6>
+						<h6 className="font-medium opacity-70 mb-2">Hola, bienvenido a Movi3Words!!</h6>
 						<h1 className="text-3xl leading-none font-bold  tracking-wider mb-2">
-							¿Podrás adivinar la película?
+							¿Podrás adivinar la película, solo con 3 palabras?
 						</h1>
 						<hr className="bg-blue-600 h-1 rounded-[3px] w-12 opacity-100 my-6" />
 						<p>Palabras Clave:</p><span className="font-bold text-lg"> {pelicula.palabras}</span>
-						
+
 						<div className="relative mt-6">
 							<hr className="bg-blue-600 h-1 rounded-[3px] w-12 opacity-100 my-6" />
-							<p className={`opacity-70 mb-2 transition select-none ${visibleGenero ? "blur-none" : "blur-md"}`}
+							<p className={` mb-2 transition select-none font-bold text-lg ${visibleGenero ? "blur-none" : "blur-md"}`}
 								style={{ userSelect: "none" }} >
 								Género: {pelicula.genero}</p>
 							{!visibleGenero && (
@@ -71,8 +78,8 @@ const JuegoBase = ({ pelicula, roomId }) => {
 						<div className="relative mt-6 mb-6">
 							<hr className="bg-blue-600 h-1 rounded-[3px] w-12 opacity-100 my-6" />
 							<p
-								className={`opacity-70 mb-2 transition select-none ${visibleSinopsis ? "blur-none" : "blur-md"}`}
-								style={{ userSelect: "none" }} // Asegura que no se pueda copiar
+								className={`font-bold text-lg mb-2 transition select-none ${visibleSinopsis ? "blur-none" : "blur-md"}`}
+								style={{ userSelect: "none" }}
 							>
 								{pelicula.sinopsis}
 							</p>
@@ -86,22 +93,14 @@ const JuegoBase = ({ pelicula, roomId }) => {
 								</button>
 							)}
 						</div>
-						<Chat roomId={roomId} buscarPelicula={handleBuscarPelicula}/>
-						<div className="mt-12">
-							<button
-								onClick={handleBuscarPelicula}
-								className="bg-gray-900 text-white dark:bg-white dark:text-black hover:bg-opacity-90 rounded-md px-5 py-2 transition">
-								Otra pelicula
-							</button>
-						</div>
+						
+					
 					</div>
 					<div className="col-span-12 lg:col-span-6 h-full flex items-center justify-center relative">
-						<div className="mt-12 lg:mt-0 max-w-xs md:max-w-sm relative">
-							<img
-								src={pelicula.imagenes[3]}
-								alt=""
-								className={`w-full h-auto rounded-2xl transition ${visible ? "blur-none" : "blur-md"}`}
-							/>
+						<div className="mt-12 lg:mt-0 max-w-md md:max-w-lg lg:max-w-xl relative">
+							<div className={`w-full h-auto rounded-2xl transition ${visible ? "blur-none" : "blur-xl"}`}>
+								<ImageSlider imagenes={pelicula.imagenes}  />
+							</div>
 
 							{!visible && (
 								<button
@@ -114,9 +113,15 @@ const JuegoBase = ({ pelicula, roomId }) => {
 						</div>
 					</div>
 
+
 				</div>
 			</div>
-
+			<div className="">
+		  
+		   < ModalAdivinar roomId={roomId} buscarPelicula={handleBuscarPelicula}/>
+		   </div>
+		   
+		   
 		</section>
 	);
 };

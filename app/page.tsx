@@ -14,13 +14,13 @@ const ChatRoom = () => {
   const [pelicula, setPelicula] = useState("");
  
   return (
-    <div className="">
+    <div className="mt-10">
       <div className={`${styles.container}`}>
-        {/* Sección 1 */}
+        
         <div>
           <div className="min-h-[75vh]" style={{ backgroundColor: "#282447" }}>
             <section className={`${styles.section}`} style={{ backgroundColor: "#282447" }}>
-              <h1>Movi3Words</h1>
+              
 
               <ContainerImage />
               <BotonComenzar />

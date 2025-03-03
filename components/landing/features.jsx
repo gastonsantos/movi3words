@@ -16,7 +16,7 @@ const features = [
 		icon: faRobot,
 		title: "IA",
 		description:
-			"Con el uso de la IA, para que la diversion siempre sea distinta.",
+			"Con el uso de la IA, para generar las 3 palabagras que hacen referencia a las peliculas.",
 	},
 	{
 		icon: faFilm,
@@ -26,9 +26,9 @@ const features = [
 	},
 	{
 		icon: faCamera,
-		title: "Posters",
+		title: "Imágenes",
 		description:
-			"Posters originales de las peliculas.",
+			"Imagenes de las peliculas.",
 	},
 	{
 		icon: faTicket,
@@ -54,7 +54,8 @@ const FeatureItem = ({ feature }) => {
 	return (
 		<div className="xl:p-6">
 			<div className="w-[42px] h-[42px] bg-white bg-opacity-20 text-white rounded-full text-[32px] inline-flex items-center justify-center mb-6">
-				<FontAwesomeIcon icon={feature.icon} />
+			{<FontAwesomeIcon icon={feature.icon} className="text-white filter contrast-200" style={{ imageRendering: "pixelated" }} />} 
+
 			</div>
 			<h4 className="text-2xl font-bold mb-4">{feature.title}</h4>
 			<p>{feature.description}</p>

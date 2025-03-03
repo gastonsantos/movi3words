@@ -2,12 +2,11 @@
   .containerImage {
     display: grid;
     place-items: center;
-    height: 70vh;
+    height: 60vh;
   }
   
   .imagecontainer {
-    --size: 320px;
-    
+    --size: 350px;
     width: var(--size);
     height: var(--size);
     background: linear-gradient(indigo, deeppink);
@@ -20,7 +19,9 @@
   }
   
   .manzdev {
-    rotate: -6deg;
+    
+    height: 400px;
+    rotate: -1deg;
     translate: 0 20px;
     filter: drop-shadow(6px 0 4px #0006)
   }
@@ -41,12 +42,12 @@
   }
   
   .manzdev {
-    animation: move 3s infinite alternate;
+    animation: move 4s infinite alternate;
   }
   
   @keyframes move {
-    0%, 50% { translate: 0 20px; }
-    75%, 100% { translate: 0 350px; }
+    0%, 50% { translate: 0 -20px; }
+    75%, 100% { translate: 0 500px; }
   }
   
   :is(.css, .tailwind) {
@@ -64,7 +65,7 @@
   }
   */
   @keyframes right-appears {
-    50%, 75% { translate: 300px 0; }
+    50%, 75% { translate: 500px 0; }
   }
   
   @keyframes left-appears {

@@ -27,7 +27,7 @@ const PrimeraSeccion = () => {
                 </path>
             </svg>
          
-            {/* Ola divisoria entre sección 3 y 4 */}
+            
 
         </div>
     </>);
