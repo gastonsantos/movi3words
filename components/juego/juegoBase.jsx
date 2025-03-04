@@ -2,7 +2,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
-import { obtenerPelicula } from "@/services/peliculas/api";
+import { adivinarPelicula, obtenerPelicula } from "@/services/peliculas/api";
 import { usePelicula } from "@/contexts/PeliculaContext";
 import { useRouter } from "next/navigation";
 import ImageSlider from "@/components/juego/ImageSlider";
@@ -11,7 +11,7 @@ import ModalAdivinar from "@/components/juego/modalAdivinar";
 const JuegoBase = ({ pelicula, roomId }) => {
 	const router = useRouter();
 	const { setPelicula } = usePelicula();
-	//const { pelicula } = usePelicula();
+	const [verAdivinar, setVerAdivinar] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const [visibleGenero, setVisibleGenero] = useState(false);
 	const [visibleSinopsis, setVisibleSinopsis] = useState(false);
@@ -19,7 +19,7 @@ const JuegoBase = ({ pelicula, roomId }) => {
 	useEffect(() => {
 		console.log("QUE trae Pelicula", pelicula)
 		if (!pelicula || !pelicula.imagenes) {
-			
+
 			return;
 		}
 
@@ -44,18 +44,43 @@ const JuegoBase = ({ pelicula, roomId }) => {
 		}
 
 	}
+	const handleVerAdivinar = () => {
+		setVerAdivinar(!verAdivinar);
+		console.log("adiniarPelicula", verAdivinar);
+	}
 	return (
 		<section className="min-h-dvh  relative ezy__about9 light py-6 md:py-6 bg-cover bg-no-repeat text-zinc-900 dark:text-white"
-		style={{ backgroundImage: "url('/image/Fondo.webp')" }}
+			style={{ backgroundImage: "url('/image/Fondo.webp')" }}
 		>
-			 <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
+			<div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
+
 			<div className="container px-4">
+				<div className="m-6">
+					{!verAdivinar ? (
+						<button className="absolute top-0 z-50 right-0 mt-3 px-4 py-2.5  rounded-full bg-gradient-to-br from-violet-600 to-teal-400 text-white cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-gradient-to-tr"
+							onClick={handleVerAdivinar}
+						>
+							Adivinar
+						</button>
+					) : (
+						<button className="absolute top-0 z-50 right-0 mt-4 px-4 py-2.5  rounded-full bg-gradient-to-br from-red-500 to-slate-800 text-white cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-gradient-to-tr"
+							onClick={handleVerAdivinar}
+						>
+							Ocultar
+						</button>
+
+					)}
+				</div>
 				<div className="grid grid-cols-12 items-center gap-4 mb-12">
+
+
+
 					<div className="col-span-12 lg:col-span-6 h-full  items-center justify-center relative">
-					
-						<h6 className="font-medium opacity-70 mb-2">Hola, bienvenido a Movi3Words!!</h6>
-						<h1 className="text-3xl leading-none font-bold  tracking-wider mb-2">
-							¿Podrás adivinar la película, solo con 3 palabras?
+
+
+
+						<h1 className="text-3xl leading-none font-bold p-3 tracking-wider mb-2">
+							¿Podrás adivinar la película?
 						</h1>
 						<hr className="bg-blue-600 h-1 rounded-[3px] w-12 opacity-100 my-6" />
 						<p>Palabras Clave:</p><span className="font-bold text-lg"> {pelicula.palabras}</span>
@@ -93,15 +118,16 @@ const JuegoBase = ({ pelicula, roomId }) => {
 								</button>
 							)}
 						</div>
-						
-					
+
+
 					</div>
+
 					<div className="col-span-12 lg:col-span-6 h-full flex items-center justify-center relative">
 						<div className="mt-12 lg:mt-0 max-w-md md:max-w-lg lg:max-w-xl relative">
 							<div className={`w-full h-auto rounded-2xl transition ${visible ? "blur-none" : "blur-xl "}`}
-							
+
 							>
-								<ImageSlider imagenes={pelicula.imagenes}  />
+								<ImageSlider imagenes={pelicula.imagenes} />
 							</div>
 
 							{!visible && (
@@ -118,12 +144,13 @@ const JuegoBase = ({ pelicula, roomId }) => {
 
 				</div>
 			</div>
-			<div className="">
-		  
-		   < ModalAdivinar roomId={roomId} buscarPelicula={handleBuscarPelicula}/>
-		   </div>
-		   
-		   
+			{verAdivinar && (
+				<div className="">
+
+					< ModalAdivinar roomId={roomId} buscarPelicula={handleBuscarPelicula} />
+				</div>
+			)}
+
 		</section>
 	);
 };

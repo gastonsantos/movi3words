@@ -69,7 +69,7 @@ const DraggableModal = ({ roomId, buscarPelicula }) => {
                     <Draggable handle=".modal-header" nodeRef={modalRef}>
                         <div
                             ref={modalRef}
-                            className="relative bg-cover bg-no-repeat pointer-events-auto cursor-move bg-emerald-700 p-6 rounded-lg shadow-lg w-96 flex flex-col items-center justify-center"
+                            className="relative bg-cover bg-no-repeat pointer-events-auto cursor-move bg-emerald-700 p-6 rounded-lg shadow-lg w-72 flex flex-col items-center justify-center"
                             style={{ backgroundImage: "url('/image/Cine.webp')" }}
                         >
                             <div className="absolute inset-0 bg-black bg-opacity-75 rounded-lg"></div>
