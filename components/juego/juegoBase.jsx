@@ -7,8 +7,7 @@ import { usePelicula } from "@/contexts/PeliculaContext";
 import { useRouter } from "next/navigation";
 import ImageSlider from "@/components/juego/ImageSlider";
 import ModalAdivinar from "@/components/juego/modalAdivinar";
-import Footer from "@/components/landing/footer";
-import styles from "@/styles/Home.module.css";
+
 const JuegoBase = ({ pelicula, roomId }) => {
 	const router = useRouter();
 	const { setPelicula } = usePelicula();
@@ -53,6 +52,7 @@ const JuegoBase = ({ pelicula, roomId }) => {
 			<div className="container px-4">
 				<div className="grid grid-cols-12 items-center gap-4 mb-12">
 					<div className="col-span-12 lg:col-span-6 h-full  items-center justify-center relative">
+					
 						<h6 className="font-medium opacity-70 mb-2">Hola, bienvenido a Movi3Words!!</h6>
 						<h1 className="text-3xl leading-none font-bold  tracking-wider mb-2">
 							¿Podrás adivinar la película, solo con 3 palabras?
@@ -98,7 +98,9 @@ const JuegoBase = ({ pelicula, roomId }) => {
 					</div>
 					<div className="col-span-12 lg:col-span-6 h-full flex items-center justify-center relative">
 						<div className="mt-12 lg:mt-0 max-w-md md:max-w-lg lg:max-w-xl relative">
-							<div className={`w-full h-auto rounded-2xl transition ${visible ? "blur-none" : "blur-xl"}`}>
+							<div className={`w-full h-auto rounded-2xl transition ${visible ? "blur-none" : "blur-xl "}`}
+							
+							>
 								<ImageSlider imagenes={pelicula.imagenes}  />
 							</div>
 

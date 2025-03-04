@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Draggable from "react-draggable";
-import { X } from "lucide-react";
+import Confetti from "react-confetti";
 import "antd/dist/reset.css";
 import { adivinarPelicula } from "@/services/peliculas/api";
 
@@ -12,13 +12,21 @@ const DraggableModal = ({ roomId, buscarPelicula }) => {
     const [messages, setMessages] = useState([]); // Mensajes recibidos
     const [guess, setGuess] = useState(""); // Palabra a adivinar
     const [result, setResult] = useState(""); // Resultado de la adivinanza
-
+    const [isVictory, setIsVictory] = useState(false);
     useEffect(() => {
         const HandlebuscarPelicula = () => {
             buscarPelicula();
         }
     }, [roomId]);
+    useEffect(() => {
+        if (isVictory) {
+            const timer = setTimeout(() => {
+                setIsVictory(false);
+            }, 5000); 
 
+            return () => clearTimeout(timer);
+        }
+    }, [isVictory]);
     const handleAdivinarPelicula = async () => {
         try {
             const response = await adivinarPelicula(roomId, guess);
@@ -32,6 +40,8 @@ const DraggableModal = ({ roomId, buscarPelicula }) => {
             setMessages((prevMessages) => [newMessage]);
             setGuess("");
             if (response === "Correcto") {
+                setIsVictory(true);
+                playFestejoSound();
                 buscarPelicula();
                 setMessages([]);
             }
@@ -39,9 +49,21 @@ const DraggableModal = ({ roomId, buscarPelicula }) => {
             console.error("Error al adivinar la película:", error);
         }
     };
-
+    const playFestejoSound = () => {
+        const festejoSound = new Audio("/sonidos/festejo.mp3"); 
+        festejoSound.play();
+      };
     return (
         <div className="z-50 pointer-events-none fixed inset-0 flex items-center justify-center">
+            {isVictory && (
+                <Confetti
+                    width={window.innerWidth}
+                    height={window.innerHeight}
+                    numberOfPieces={200} // Cuántas piezas de confeti quieres
+                    gravity={0.2} // Ajusta la gravedad
+                    initialVelocityY={20} // Velocidad inicial del confeti en el eje Y
+                />
+            )}
             {isOpen && (
                 <div className="fixed inset-0 flex items-center justify-center cursor-move">
                     <Draggable handle=".modal-header" nodeRef={modalRef}>

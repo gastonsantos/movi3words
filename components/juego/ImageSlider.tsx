@@ -26,7 +26,7 @@ const ImageSlider: React.FC<{ imagenes: string[] }> = ({ imagenes }) => {
   return (
     <div
       className="relative w-full max-w-4xl mx-auto select-none"
-      onContextMenu={(e) => e.preventDefault()} // Bloquea clic derecho
+      onContextMenu={(e) => e.preventDefault()} 
       style={{ userSelect: "none", WebkitUserSelect: "none", MozUserSelect: "none", msUserSelect: "none" }}
     >
       <div className="overflow-hidden rounded-2xl">
@@ -41,7 +41,7 @@ const ImageSlider: React.FC<{ imagenes: string[] }> = ({ imagenes }) => {
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.5 }}
             draggable="false"
-            onContextMenu={(e) => e.preventDefault()} // Bloquea clic derecho en la imagen
+            onContextMenu={(e) => e.preventDefault()} 
           />
         </AnimatePresence>
       </div>
