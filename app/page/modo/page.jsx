@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 import BotonComenzar from "@/components/modo/botonComenzar";
-import Footer from "@/components/landing/footer";
+import Footer from "@/components/footer/footer";
 import styles from "@/styles/Home.module.css";
 
 const cardsData = [

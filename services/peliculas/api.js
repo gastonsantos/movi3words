@@ -68,4 +68,50 @@ async function obtenerPelicula(roomId) {
               }
             }
       
-      export { obtenerPelicula,crearSalaJuego, adivinarPelicula }
+            
+async function obtenerPeliculaPorSala(roomId) {
+  const data = {
+    idRoom: roomId
+  };
+        try {
+          console.log("como esta roomId", data)
+          const response = await axios.post(API + "/api/pelicula/obtenerPeliculaPorSala", data, {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          });
+          console.log("Response", response);
+          if(response.data!= null){
+            console.log("Que trea ObtenerPeliculaSala: ",response.data);
+            return response.data;
+          }
+          
+        } catch (error) {
+          throw error; 
+        }
+      }
+async function obtenerPuntosPorSala(roomId) {
+  const data = {
+    idRoom: roomId
+  };
+        try {
+          console.log("como esta roomId", data)
+          const response = await axios.post(API + "/api/pelicula/obtenerPuntos", data, {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          });
+          console.log("Response", response);
+          if(response.data!= null){
+            console.log("Que trea obtenerPuntos: ",response.data);
+            return response.data;
+          }
+          
+        } catch (error) {
+          throw error; 
+        }
+      }
+
+
+
+      export { obtenerPelicula,crearSalaJuego, adivinarPelicula,obtenerPeliculaPorSala,obtenerPuntosPorSala }

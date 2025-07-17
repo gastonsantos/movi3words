@@ -6,7 +6,7 @@
   }
   
   .imagecontainer {
-    --size: 350px;
+    --size: 320px;
     width: var(--size);
     height: var(--size);
     background: linear-gradient(indigo, deeppink);

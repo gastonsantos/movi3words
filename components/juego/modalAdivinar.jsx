@@ -4,29 +4,45 @@ import React, { useState, useRef, useEffect } from "react";
 import Draggable from "react-draggable";
 import Confetti from "react-confetti";
 import "antd/dist/reset.css";
-import { adivinarPelicula } from "@/services/peliculas/api";
+import { adivinarPelicula, obtenerPuntosPorSala } from "@/services/peliculas/api";
 
 const DraggableModal = ({ roomId, buscarPelicula }) => {
     const [isOpen, setIsOpen] = useState(true);
     const modalRef = useRef(null);
-    const [messages, setMessages] = useState([]); // Mensajes recibidos
-    const [guess, setGuess] = useState(""); // Palabra a adivinar
-    const [result, setResult] = useState(""); // Resultado de la adivinanza
+    const [messages, setMessages] = useState([]); 
+    const [guess, setGuess] = useState(""); 
+    const [result, setResult] = useState(""); 
     const [isVictory, setIsVictory] = useState(false);
+    const [contador, setContador] = useState();
     useEffect(() => {
         const HandlebuscarPelicula = () => {
             buscarPelicula();
+            
         }
+        handleObtenerPuntosDeSala();
+     
     }, [roomId]);
+
     useEffect(() => {
         if (isVictory) {
             const timer = setTimeout(() => {
                 setIsVictory(false);
+                
             }, 5000); 
 
             return () => clearTimeout(timer);
         }
     }, [isVictory]);
+
+    const handleObtenerPuntosDeSala = async ()=>{
+        try {
+             const response = await obtenerPuntosPorSala(roomId);
+             setContador(response);
+             console.log("El puntaje actual es de",response);
+        } catch (error){
+             console.error("Error al obtener los puntos de sala", error);
+        }
+    }
     const handleAdivinarPelicula = async () => {
         try {
             const response = await adivinarPelicula(roomId, guess);
@@ -44,6 +60,9 @@ const DraggableModal = ({ roomId, buscarPelicula }) => {
                 playFestejoSound();
                 buscarPelicula();
                 setMessages([]);
+                
+                handleObtenerPuntosDeSala();
+
             }
         } catch (error) {
             console.error("Error al adivinar la película:", error);
@@ -59,9 +78,9 @@ const DraggableModal = ({ roomId, buscarPelicula }) => {
                 <Confetti
                     width={window.innerWidth}
                     height={window.innerHeight}
-                    numberOfPieces={200} // Cuántas piezas de confeti quieres
-                    gravity={0.2} // Ajusta la gravedad
-                    initialVelocityY={20} // Velocidad inicial del confeti en el eje Y
+                    numberOfPieces={200} 
+                    gravity={0.2} 
+                    initialVelocityY={20} 
                 />
             )}
             {isOpen && (
@@ -74,10 +93,14 @@ const DraggableModal = ({ roomId, buscarPelicula }) => {
                         >
                             <div className="absolute inset-0 bg-black bg-opacity-75 rounded-lg"></div>
                             <div className="relative z-10 modal-header cursor-move flex flex-col items-center justify-center w-full p-1">
+                                 <div className="text-lg text-white font-semibold">Puntos</div>
+                                 <div className="text-lg text-white font-semibold">{contador}</div>
                                 <h2 className="text-lg text-white font-semibold">Adivina la Pelicula</h2>
                                 <div className="flex justify-between items-center border-b pb-2">
                                     <div className="mt-4">
+                                       
                                         <div>
+                                           
                                             {messages.map((msg, index) => (
                                                 <div key={index}>
                                                     <strong>{msg.usuario}:</strong> {msg.mensaje}

@@ -5,7 +5,7 @@ const SegundaSeccion = () => {
         <div>
             <div className="min-h-[75vh]" style={{ backgroundColor: "#263e73" }}>
                 <section className={styles.section} style={{ backgroundColor: "#263e73" }}>
-                  {/*Contenido*/}
+                
 
 
             <Feature1/>

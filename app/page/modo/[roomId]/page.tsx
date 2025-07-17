@@ -5,7 +5,7 @@ import { obtenerPelicula } from "@/services/peliculas/api";
 import { usePelicula } from "@/contexts/PeliculaContext";
 import { useRouter } from "next/navigation";
 import JuegoBase from "@/components/juego/juegoBase";
-import Footer from "@/components/landing/footer";
+import Footer from "@/components/footer/footer";
 import styles from "@/styles/Home.module.css";
 const ChatRoom = () => {
   const { setPelicula } = usePelicula();
