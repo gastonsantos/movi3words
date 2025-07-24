@@ -22,7 +22,7 @@ const SalaPrincipal = () => {
                 console.log("Conectado al WebSocket");
                 setStompClient(client);
 
-                // Suscribirse a los temas de WebSocket
+                
                 client.subscribe("/topic/roomCreated", (message) => {
                     const data = JSON.parse(message.body);
                     console.log("DATA", data);
@@ -52,7 +52,7 @@ const SalaPrincipal = () => {
         };
     }, []);
 
-    // Función para crear una sala
+    
     const handleCrearSala = () => {
         if (stompClient) {
 
@@ -65,7 +65,7 @@ const SalaPrincipal = () => {
         }
     };
 
-    // Función para unirse a una sala y adivinar la palabra
+   
     const handleUnirseSala = () => {
         if (stompClient && roomId && guess) {
             stompClient.publish({

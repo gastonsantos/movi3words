@@ -17,9 +17,9 @@ const ChatRoom = () => {
        <Cabezera/>
        <PrimeraSeccion />
        <SegundaSeccion/>
-        <div className={styles.waveContainer}>
-          <Footer />
-        </div>
+       <div className={styles.waveContainer}>
+       s   <Footer />
+       </div>
 
       </div>
     </div>

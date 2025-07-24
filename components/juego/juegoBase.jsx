@@ -2,12 +2,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
-import { obtenerPelicula, obtenerPeliculaPorSala } from "@/services/peliculas/api";
+import { obtenerPelicula, obtenerPeliculaPorSala, obtenerPuntosPorSala } from "@/services/peliculas/api";
 import { usePelicula } from "@/contexts/PeliculaContext";
 import { useRouter } from "next/navigation";
 import ImageSlider from "@/components/juego/ImageSlider";
 import ModalAdivinar from "@/components/juego/modalAdivinar";
 import Timer from "@/components/juego/timer";
+
 const JuegoBase = ({ pelicula = {}, roomId }) => {
 	const router = useRouter();
 	const { setPelicula } = usePelicula();
@@ -16,6 +17,10 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 	const [visibleGenero, setVisibleGenero] = useState(false);
 	const [visibleSinopsis, setVisibleSinopsis] = useState(false);
 	const [imagenes, setImagenes] = useState([]);
+	const [juegoTerminado, setJuegoTerminado] = useState(false);
+	const [puntos, setPuntos] = useState();
+
+
 	useEffect(() => {
 		if (!pelicula && roomId) {
 			obtenerPeliculaDeSala();
@@ -61,11 +66,11 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 		setVisibleSinopsis(false);
 		try {
 			const response = await obtenerPelicula(roomId);
-			console.log("ROOM ID", roomId)
+			
 			if (response) {
 				const data = response;
 				setPelicula(data);
-				console.log("LAAAAAa nueva pelicula es: ", data)
+				
 			} else {
 				setPelicula({});
 			}
@@ -78,8 +83,12 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 	const handleVerAdivinar = () => {
 		setVerAdivinar(!verAdivinar);
 	}
-	const terminoElJuego = () => {
+	const terminoElJuego = async () => {
+		const response = await obtenerPuntosPorSala(roomId);
+		setPuntos(response); 
 		setVerAdivinar(false);
+		setJuegoTerminado(true);
+		return response; 
 	}
 	return (
 		<section className="min-h-dvh  relative ezy__about9 light py-6 md:py-6 bg-cover bg-no-repeat text-zinc-900 dark:text-white"
@@ -88,24 +97,9 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 			<div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
 
 			<div className="container px-4">
-				<div className="m-6">
-					{!verAdivinar ? (
-						<button className="absolute top-0 z-40 right-0 mt-3 px-4 py-2.5  rounded-full bg-gradient-to-br from-violet-600 to-teal-400 text-white cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-gradient-to-tr"
-							onClick={handleVerAdivinar}
-						>
-							Adivinar
-						</button>
-					) : (
-						<button className="absolute top-0 z-40 right-0 mt-4 px-4 py-2.5  rounded-full bg-gradient-to-br from-red-500 to-slate-800 text-white cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-gradient-to-tr"
-							onClick={handleVerAdivinar}
-						>
-							Ocultar
-						</button>
-
-					)}
-				</div>
+		
 				<div className="">
-					<Timer roomId={roomId} terminoElJuego={terminoElJuego} />
+					<Timer roomId={roomId} terminoElJuego={terminoElJuego} juegoTerminado={juegoTerminado} puntos={puntos} />
 				</div>
 
 				<div className="grid grid-cols-12 items-center gap-4 mb-12">
@@ -119,41 +113,27 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 						<h1 className="text-3xl leading-none font-bold p-3 tracking-wider mb-2">
 							¿Podrás adivinar la película?
 						</h1>
-						<hr className="bg-blue-600 h-1 rounded-[3px] w-12 opacity-100 my-6" />
-						<p>Palabras Clave:</p><span className="font-bold text-lg"> {pelicula?.palabras || "Cargando..."}</span>
 
-						<div className="relative mt-6">
-							<hr className="bg-blue-600 h-1 rounded-[3px] w-12 opacity-100 my-6" />
-							<p className={` mb-2 transition select-none font-bold text-lg ${visibleGenero ? "blur-none" : "blur-md"}`}
-								style={{ userSelect: "none" }} >
-								Género: {pelicula?.genero || "Cargando..."}</p>
-							{!visibleGenero && (
-								<button
-									className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 text-white dark:bg-white dark:text-black hover:bg-opacity-90 rounded-full p-3 transition"
-									onClick={() => setVisibleGenero(true)}
-								>
-									<FontAwesomeIcon icon={faEye} size="lg" />
-								</button>
-							)}
-						</div>
+						<p className="font-bold text-sm">Palabras Clave:</p><span className="font-bold text-lg"> {pelicula?.palabras || "Cargando..."}</span>
+
+
 
 						<div className="relative mt-6 mb-6">
-							<hr className="bg-blue-600 h-1 rounded-[3px] w-12 opacity-100 my-6" />
-							<p
-								className={`font-bold text-lg mb-2 transition select-none ${visibleSinopsis ? "blur-none" : "blur-md"}`}
-								style={{ userSelect: "none" }}
-							>
-								{pelicula?.sinopsis || "Cargando..."}
-							</p>
+							<div className="mt-12 lg:mt-0 max-w-md md:max-w-lg lg:max-w-xl relative">
+								<div className={`w-full h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden rounded-2xl transition ${visible ? "blur-none" : "blur-xl"}`}>
+									<ImageSlider imagenes={pelicula?.imagenes || []} />
+								</div>
 
-							{!visibleSinopsis && (
-								<button
-									className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 text-white dark:bg-white dark:text-black hover:bg-opacity-90 rounded-full p-3 transition"
-									onClick={() => setVisibleSinopsis(true)}
-								>
-									<FontAwesomeIcon icon={faEye} size="lg" />
-								</button>
-							)}
+
+								{!visible && (
+									<button
+										className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 text-white dark:bg-white dark:text-black hover:bg-opacity-90 rounded-full p-3 transition"
+										onClick={() => setVisible(true)}
+									>
+										<FontAwesomeIcon icon={faEye} size="lg" />
+									</button>
+								)}
+							</div>
 						</div>
 
 
@@ -161,32 +141,15 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 
 					<div className="col-span-12 lg:col-span-6 h-full flex items-center justify-center relative">
 						<div className="mt-12 lg:mt-0 max-w-md md:max-w-lg lg:max-w-xl relative">
-							<div className={`w-full h-auto rounded-2xl transition ${visible ? "blur-none" : "blur-xl "}`}
-
-							>
-								<ImageSlider imagenes={pelicula?.imagenes || []} />
-							</div>
-
-							{!visible && (
-								<button
-									className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 text-white dark:bg-white dark:text-black hover:bg-opacity-90 rounded-full p-3 transition"
-									onClick={() => setVisible(true)}
-								>
-									<FontAwesomeIcon icon={faEye} size="lg" />
-								</button>
-							)}
+							< ModalAdivinar roomId={roomId} buscarPelicula={handleBuscarPelicula} usoAyuda={visible} juegoTerminado={juegoTerminado} />
 						</div>
 					</div>
 
 
 				</div>
 			</div>
-			{verAdivinar && (
-				<div className="">
 
-					< ModalAdivinar roomId={roomId} buscarPelicula={handleBuscarPelicula} />
-				</div>
-			)}
+			
 
 		</section>
 	);

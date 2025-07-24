@@ -1,25 +1,24 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const ImageSlider: React.FC<{ imagenes: string[] }> = ({ imagenes }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Resetear el índice si cambia la lista de imágenes
+  
   useEffect(() => {
     setCurrentIndex(0);
   }, [imagenes]);
 
   useEffect(() => {
-    if (imagenes.length === 0) return; // Evitar errores si no hay imágenes
+    if (imagenes.length === 0) return; 
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % imagenes.length);
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [imagenes, currentIndex]); // Dependencias corregidas
+  }, [imagenes, currentIndex]); 
 
   const nextSlide = () => {
     if (imagenes.length > 0) {

@@ -5,8 +5,7 @@ import { obtenerPelicula } from "@/services/peliculas/api";
 import { usePelicula } from "@/contexts/PeliculaContext";
 import { useRouter } from "next/navigation";
 import JuegoBase from "@/components/juego/juegoBase";
-import Footer from "@/components/footer/footer";
-import styles from "@/styles/Home.module.css";
+
 const ChatRoom = () => {
   const { setPelicula } = usePelicula();
   const params = useParams();
@@ -16,11 +15,9 @@ const ChatRoom = () => {
   const roomId = params.roomId;
 
   useEffect(() => {
-    console.log("QUE trae Pelicula", pelicula)
+    
     if (!pelicula) {
-      // Si no hay película en el contexto, redirigir de vuelta a la sala principal
-      //router.push("/page/sala-principal");
-
+  
     }
   }, [pelicula, router]);
 
