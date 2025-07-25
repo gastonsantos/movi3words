@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
-import { usePelicula } from '../../../contexts/peliculaContext';
+import { usePelicula } from '@/contexts/PeliculaContext';
 import WaveAnimation from "@/components/waveAnimation";
 const SalaPrincipal = () => {
     const { setPelicula } = usePelicula();
@@ -44,7 +44,7 @@ const SalaPrincipal = () => {
 
         client.activate();
 
-       
+        // Desconectar al desmontar el componente
         return () => {
             if (client.connected) {
                 client.deactivate();

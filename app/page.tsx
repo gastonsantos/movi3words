@@ -1,7 +1,6 @@
 "use client"
 import React from "react";
-import styles from "@/styles/Home.module.css";
-//import styles from "../styles/home.module.css";
+import styles from "@/styles/home.module.css";
 import Footer from "@/components/footer/footer";
 import PrimeraSeccion from "@/components/landing/primeraSeccion";
 import SegundaSeccion from "@/components/landing/segundaSeccion";

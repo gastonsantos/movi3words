@@ -1,6 +1,5 @@
 "use client"
 import { useSearchParams } from "next/navigation";
-
 import React, { useState, useRef, useEffect } from "react";
 import Draggable from "react-draggable";
 import Confetti from "react-confetti";
