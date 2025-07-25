@@ -3,17 +3,17 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
-import { usePelicula } from "@/contexts/PeliculaContext";
+import { usePelicula } from '@/contexts/PeliculaContext';
 import WaveAnimation from "@/components/waveAnimation";
 const SalaPrincipal = () => {
     const { setPelicula } = usePelicula();
     const [roomId, setRoomId] = useState(null);
     const [guess, setGuess] = useState("");
     const [result, setResult] = useState("");
-    //const [pelicula, setPelicula] = useState("");
+
     const [stompClient, setStompClient] = useState(null);
     const router = useRouter();
-    // Conectar al WebSocket cuando el componente se monta
+  
     useEffect(() => {
         const socket = new SockJS("http://localhost:8080/chat-socket");
         const client = new Client({
@@ -44,7 +44,7 @@ const SalaPrincipal = () => {
 
         client.activate();
 
-        // Desconectar al desmontar el componente
+       
         return () => {
             if (client.connected) {
                 client.deactivate();
