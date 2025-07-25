@@ -1,7 +1,7 @@
 
 import ContainerImage from "@/components/imagenComponent";
 import BotonComenzar from "@/components/landing/botonComenzar";
-import styles from "@/styles/Home.module.css";
+import styles from "@/styles/home.module.css";
 const Cabezera =()=>{
     return (
 

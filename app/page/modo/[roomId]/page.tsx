@@ -2,7 +2,7 @@
 import { useParams } from "next/navigation";
 import React, { useEffect, useRef } from "react";
 import { obtenerPelicula } from "@/services/peliculas/api";
-import { usePelicula } from "@/contexts/PeliculaContext";
+import { usePelicula } from "@/contexts/peliculaContext";
 import { useRouter } from "next/navigation";
 import JuegoBase from "@/components/juego/juegoBase";
 

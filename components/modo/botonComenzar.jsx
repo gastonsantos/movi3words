@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 //import SockJS from "sockjs-client";
 import { useRouter } from "next/navigation";
 import { crearSalaJuego } from "@/services/peliculas/api";
-import { usePelicula } from "@/contexts/PeliculaContext";
+import { usePelicula } from "@/contexts/peliculaContext";
 const BotonComenzar = ({ dificultad }) => {
     // const [stompClient, setStompClient] = useState(null);
     const { setPelicula } = usePelicula();

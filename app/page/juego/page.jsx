@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
-import { usePelicula } from '@/contexts/PeliculaContext';
+import { usePelicula } from '@/contexts/peliculaContext';
 import WaveAnimation from "@/components/waveAnimation";
 const SalaPrincipal = () => {
     const { setPelicula } = usePelicula();
