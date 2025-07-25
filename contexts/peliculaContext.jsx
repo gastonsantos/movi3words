@@ -1,16 +1,16 @@
 "use client"
 import { createContext, useContext, useState } from "react";
 
-const peliculaContext = createContext();
+const PeliculaContext = createContext();
 
-export const peliculaProvider = ({ children }) => {
+export const PeliculaProvider = ({ children }) => {
     const [pelicula, setPelicula] = useState(null);
 
     return (
-        <peliculaContext.Provider value={{ pelicula, setPelicula }}>
+        <PeliculaContext.Provider value={{ pelicula, setPelicula }}>
             {children}
-        </peliculaContext.Provider>
+        </PeliculaContext.Provider>
     );
 };
 
-export const usePelicula = () => useContext(peliculaContext);
+export const usePelicula = () => useContext(PeliculaContext);

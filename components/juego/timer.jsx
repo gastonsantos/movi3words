@@ -44,7 +44,7 @@ const Timer = ({ roomId, terminoElJuego, juegoTerminado, puntos }) => {
       <div className='absolute mt-10 left-1/2 z-5 transform -translate-x-1/2 -translate-y-1/2'>
         <CountdownCircleTimer
           isPlaying
-          duration={100}
+          duration={15}
           size={100}
           colors={['#004777', '#F7B801', '#A30000', '#A30000']}
           colorsTime={[7, 5, 2, 0]}

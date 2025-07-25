@@ -11,22 +11,15 @@ const Terminado = () => {
     const searchParams = useSearchParams();
     const modalRef = useRef(null);
     const [isVictory, setIsVictory] = useState(true);
-    const [currentUrl, setCurrentUrl] = useState('');
     const rawPuntos = searchParams.get("puntos");
     const puntos = rawPuntos === "undefined" || rawPuntos === null ? 0 : parseInt(rawPuntos, 10);
-    const [contador, setContador] = useState(puntos);
+    const contador = puntos;
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            setCurrentUrl(window.location.href);
-        }
+     useEffect(() => {
         if (isVictory) {
-            const timer = setTimeout(() => {
-                setIsVictory(true);
-
+            setTimeout(() => {
+                setIsVictory(true); 
             }, 5000);
-
-
         }
     }, [isVictory]);
 

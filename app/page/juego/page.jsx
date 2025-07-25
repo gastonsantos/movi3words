@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
-import { usePelicula } from '@/contexts/peliculaContext';
+import { usePelicula } from '@/contexts/PeliculaContext';
 import WaveAnimation from "@/components/waveAnimation";
 const SalaPrincipal = () => {
     const { setPelicula } = usePelicula();
@@ -27,7 +27,6 @@ const SalaPrincipal = () => {
                     const data = JSON.parse(message.body);
                     console.log("DATA", data);
                     const newRoomId = data.sala;
-                    const newPelicula = data.pelicula;
                     setPelicula(data.pelicula);
                     setRoomId(newRoomId);
                     router.push(`/page/juego/${newRoomId}`);

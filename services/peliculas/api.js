@@ -7,15 +7,15 @@ async function obtenerPelicula(roomId) {
     idRoom: roomId
   };
   try {
-    
+
     const response = await axios.post(API + "/api/pelicula/obtenerPelicula", data, {
       headers: {
         "Content-Type": "application/json"
       }
     });
-  
+
     if (response.data != null) {
-     
+
       return response.data;
     }
 
@@ -29,13 +29,15 @@ async function crearSalaJuego(dificultad) {
     dificultad: dificultad
   };
   try {
-    
+
     const response = await axios.post(API + "/api/pelicula/crearSala", data, {
       headers: {
         "Content-Type": "application/json"
       }
-    });  
+    });
+    console.log("La pelicula es: ", response.data);
     if (response.data != null) {
+
       return response.data;
     }
 
@@ -44,7 +46,7 @@ async function crearSalaJuego(dificultad) {
   }
 }
 
-async function adivinarPelicula(idSala, pelicula,usoAyuda) {
+async function adivinarPelicula(idSala, pelicula, usoAyuda) {
   const data = {
     sala: idSala,
     pelicula: pelicula,
@@ -62,7 +64,7 @@ async function adivinarPelicula(idSala, pelicula,usoAyuda) {
     }
 
   } catch (error) {
-   
+
     return error.response.data.message;
   }
 }
@@ -73,15 +75,15 @@ async function obtenerPeliculaPorSala(roomId) {
     idRoom: roomId
   };
   try {
-   
+
     const response = await axios.post(API + "/api/pelicula/obtenerPeliculaPorSala", data, {
       headers: {
         "Content-Type": "application/json"
       }
     });
-   
+
     if (response.data != null) {
-      
+
       return response.data;
     }
 
@@ -94,15 +96,15 @@ async function obtenerPuntosPorSala(roomId) {
     idRoom: roomId
   };
   try {
-    
+
     const response = await axios.post(API + "/api/pelicula/obtenerPuntos", data, {
       headers: {
         "Content-Type": "application/json"
       }
     });
-   
+
     if (response.data != null) {
-     
+
       return response.data;
     }
 
@@ -110,20 +112,20 @@ async function obtenerPuntosPorSala(roomId) {
     throw error;
   }
 }
- function eliminarSala(roomId) {
+function eliminarSala(roomId) {
   const data = {
     idRoom: roomId
   };
   try {
-   
-    const response =  axios.post(API + "/api/pelicula/eliminarSala", data, {
+
+    const response = axios.post(API + "/api/pelicula/eliminarSala", data, {
       headers: {
         "Content-Type": "application/json"
       }
     });
-    
+
     if (response.data != null) {
-   
+
       return response.data;
     }
 
@@ -135,4 +137,4 @@ async function obtenerPuntosPorSala(roomId) {
 
 
 
-export { obtenerPelicula, crearSalaJuego, adivinarPelicula, obtenerPeliculaPorSala, obtenerPuntosPorSala,eliminarSala }
+export { obtenerPelicula, crearSalaJuego, adivinarPelicula, obtenerPeliculaPorSala, obtenerPuntosPorSala, eliminarSala }
