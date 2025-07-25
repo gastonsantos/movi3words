@@ -1,8 +1,6 @@
 "use client"
 import { useSearchParams } from "next/navigation";
-import BotonComenzar from "@/components/modo/botonComenzar";
-import Footer from "@/components/footer/footer";
-import styles from "@/styles/Home.module.css";
+
 import React, { useState, useRef, useEffect } from "react";
 import Draggable from "react-draggable";
 import Confetti from "react-confetti";
