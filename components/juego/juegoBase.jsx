@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
 import { obtenerPelicula, obtenerPeliculaPorSala, obtenerPuntosPorSala } from "@/services/peliculas/api";
-import { usePelicula } from "@/contexts/PeliculaContext";
+import { usePelicula } from "../../contexts/PeliculaContext";
 import { useRouter } from "next/navigation";
 import ImageSlider from "@/components/juego/ImageSlider";
 import ModalAdivinar from "@/components/juego/modalAdivinar";
