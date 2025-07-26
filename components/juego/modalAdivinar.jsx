@@ -8,7 +8,7 @@ import { adivinarPelicula, obtenerPuntosPorSala } from "@/services/peliculas/api
 import { useRouter } from "next/navigation";
 const DraggableModal = ({ roomId, buscarPelicula, usoAyuda, juegoTerminado }) => {
     const router = useRouter();
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen] = useState(true);
     const modalRef = useRef(null);
     const [messages, setMessages] = useState([]);
     const [guess, setGuess] = useState("");
@@ -31,10 +31,12 @@ const DraggableModal = ({ roomId, buscarPelicula, usoAyuda, juegoTerminado }) =>
         }
     };
     useEffect(() => {
+        /*
         const HandlebuscarPelicula = () => {
             buscarPelicula();
 
-        }
+        }*/
+        buscarPelicula();
         handleObtenerPuntosDeSala();
 
     }, [roomId]);
@@ -73,7 +75,7 @@ const DraggableModal = ({ roomId, buscarPelicula, usoAyuda, juegoTerminado }) =>
                 usuario: "Ultimo intento",
                 mensaje: guess,
             };
-            setMessages((prevMessages) => [newMessage]);
+            //setMessages((prevMessages) => [newMessage]);
             setGuess("");
             if (response === "Correcto") {
                 setIsVictory(true);

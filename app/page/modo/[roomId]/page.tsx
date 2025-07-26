@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import JuegoBase from "@/components/juego/juegoBase";
 
 const ChatRoom = () => {
-  const { setPelicula } = usePelicula();
+  //const { setPelicula } = usePelicula();
   const params = useParams();
   const { pelicula } = usePelicula();
   const router = useRouter();

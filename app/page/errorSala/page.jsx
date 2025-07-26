@@ -1,10 +1,9 @@
 "use client"
-import { useRouter } from "next/navigation";
+
 import ErrorDeSala from "@/components/errorDeSala/errorDeSala";
 const ErrorSala = () => {
 
-    const router = useRouter();
-    
+   
    
 
     return (
