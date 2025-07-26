@@ -6,7 +6,7 @@ const BotonComenzar = ({ dificultad }) => {
     
     const { setPelicula } = usePelicula();
     const router = useRouter();
-    const [roomId, setRoomId] = useState(null);
+    //const [roomId, setRoomId] = useState(null);
 
     const handleCrearSala = async () => {
         try {

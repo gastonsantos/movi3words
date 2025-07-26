@@ -4,18 +4,18 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
 import { obtenerPelicula, obtenerPeliculaPorSala, obtenerPuntosPorSala } from "@/services/peliculas/api";
 import { usePelicula } from "@/contexts/peliculaContext";
-import { useRouter } from "next/navigation";
+
 import ImageSlider from "@/components/juego/ImageSlider";
 import ModalAdivinar from "@/components/juego/modalAdivinar";
 import Timer from "@/components/juego/timer";
 
 const JuegoBase = ({ pelicula = {}, roomId }) => {
-	const router = useRouter();
+
 	const { setPelicula } = usePelicula();
 	const [verAdivinar, setVerAdivinar] = useState(false);
 	const [visible, setVisible] = useState(false);
-	const [visibleGenero, setVisibleGenero] = useState(false);
-	const [visibleSinopsis, setVisibleSinopsis] = useState(false);
+	//const [visibleGenero, setVisibleGenero] = useState(false);
+	//const [visibleSinopsis, setVisibleSinopsis] = useState(false);
 	const [imagenes, setImagenes] = useState([]);
 	const [juegoTerminado, setJuegoTerminado] = useState(false);
 	const [puntos, setPuntos] = useState();
@@ -42,8 +42,8 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 
 	const obtenerPeliculaDeSala = async () => {
 		setVisible(false);
-		setVisibleGenero(false);
-		setVisibleSinopsis(false);
+		//setVisibleGenero(false);
+		//setVisibleSinopsis(false);
 		try {
 			const response = await obtenerPeliculaPorSala(roomId);
 
@@ -55,22 +55,22 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 				setPelicula({});
 			}
 		} catch (error) {
-
+			console.error("Error al obtener la pelicula", error);
 			setPelicula({});
 		}
 	}
 
 	const handleBuscarPelicula = async () => {
 		setVisible(false);
-		setVisibleGenero(false);
-		setVisibleSinopsis(false);
+		//setVisibleGenero(false);
+		//setVisibleSinopsis(false);
 		try {
 			const response = await obtenerPelicula(roomId);
-			
+
 			if (response) {
 				const data = response;
 				setPelicula(data);
-				
+
 			} else {
 				setPelicula({});
 			}
@@ -80,15 +80,17 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 		}
 
 	}
+	/*
 	const handleVerAdivinar = () => {
 		setVerAdivinar(!verAdivinar);
 	}
+		*/
 	const terminoElJuego = async () => {
 		const response = await obtenerPuntosPorSala(roomId);
-		setPuntos(response); 
+		setPuntos(response);
 		setVerAdivinar(false);
 		setJuegoTerminado(true);
-		return response; 
+		return response;
 	}
 	return (
 		<section className="min-h-dvh  relative ezy__about9 light py-6 md:py-6 bg-cover bg-no-repeat text-zinc-900 dark:text-white"
@@ -97,7 +99,7 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 			<div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
 
 			<div className="container px-4">
-		
+
 				<div className="">
 					<Timer roomId={roomId} terminoElJuego={terminoElJuego} juegoTerminado={juegoTerminado} puntos={puntos} />
 				</div>
@@ -149,7 +151,7 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 				</div>
 			</div>
 
-			
+
 
 		</section>
 	);

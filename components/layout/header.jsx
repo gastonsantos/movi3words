@@ -7,7 +7,7 @@ export default function Navbar() {
 
    const eliminarSalaJuego = async () => {
         try {
-            const response = await eliminarSala(roomId);
+             await eliminarSala(roomId);
         } catch (error) {
             console.error("Error al eliminar Sala", error);
         }

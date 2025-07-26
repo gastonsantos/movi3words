@@ -31,12 +31,12 @@ const DraggableModal = ({ roomId, buscarPelicula, usoAyuda, juegoTerminado }) =>
         }
     };
     useEffect(() => {
-        /*
+        
         const HandlebuscarPelicula = () => {
             buscarPelicula();
 
-        }*/
-        buscarPelicula();
+        }
+      
         handleObtenerPuntosDeSala();
 
     }, [roomId]);
@@ -70,11 +70,12 @@ const DraggableModal = ({ roomId, buscarPelicula, usoAyuda, juegoTerminado }) =>
             const response = await adivinarPelicula(roomId, guess, usoAyuda);
             setResult(response);
             
-
+/*
             const newMessage = {
                 usuario: "Ultimo intento",
                 mensaje: guess,
             };
+            */
             //setMessages((prevMessages) => [newMessage]);
             setGuess("");
             if (response === "Correcto") {

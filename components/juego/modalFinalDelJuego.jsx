@@ -7,22 +7,24 @@ import "antd/dist/reset.css";
 import { obtenerPuntosPorSala, eliminarSala } from "@/services/peliculas/api";
 import { useRouter } from "next/navigation";
 const ModalFinalDelJuego = ({ roomId }) => {
-    const [isOpen, setIsOpen] = useState(true);
+   // const [isOpen, setIsOpen] = useState(true);
     const modalRef = useRef(null);
     const [isVictory, setIsVictory] = useState(true);
     const [contador, setContador] = useState(0);
     const router = useRouter();
     useEffect(() => {
-        const HandlebuscarPelicula = () => {
+       /* const HandlebuscarPelicula = () => {
             buscarPelicula();
 
         }
+            */
         handleObtenerPuntosDeSala();
-
+        playFestejoSound()
     }, [roomId]);
     useEffect(() => {
         if (isVictory) {
             const timer = setTimeout(() => {
+                playFestejoSound();
                 setIsVictory(true);
 
             }, 5000);

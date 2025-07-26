@@ -9,9 +9,9 @@ const Chat = ({ roomId , buscarPelicula}) => {
  
 
   useEffect(()=>{
-    const HandlebuscarPelicula=()=>{
+    
       buscarPelicula();
-    }
+    
   }, [roomId])
 
 const handleAdivinarPelicula = async () => {

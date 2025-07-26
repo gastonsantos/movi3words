@@ -3,21 +3,21 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 //import ModalFinalDelJuego from "@/components/juego/modalFinalDelJuego";
-import { eliminarSala, obtenerPuntosPorSala } from "@/services/peliculas/api";
-const Timer = ({ roomId, terminoElJuego, juegoTerminado, puntos }) => {
+import { eliminarSala } from "@/services/peliculas/api";
+const Timer = ({ roomId, terminoElJuego, puntos }) => {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
-  const [puntaje, setPuntaje] = useState();
+  //const [isOpen, setIsOpen] = useState(false);
+  //const [puntaje, setPuntaje] = useState();
 
   useEffect(() => {
     console.log("puntos En timer", puntos);
-    setPuntaje(puntos);
+    //setPuntaje(puntos);
   }, [puntos]);
 
   const terminoElTiempo = async () => {
     try {
 
-      setIsOpen(true);
+     // setIsOpen(true);
       terminoElJuego();
       const puntosObtenidos = await terminoElJuego(); 
       eliminarSalaJuego();
@@ -33,7 +33,7 @@ const Timer = ({ roomId, terminoElJuego, juegoTerminado, puntos }) => {
   
     const eliminarSalaJuego = async () => {
         try {
-            const response = await eliminarSala(roomId);
+            await eliminarSala(roomId);
         } catch (error) {
             console.error("Error al eliminar Sala", error);
         }
