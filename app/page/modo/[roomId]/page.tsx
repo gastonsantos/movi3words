@@ -1,7 +1,7 @@
 "use client"
 import { useParams } from "next/navigation";
 import React, { useEffect } from "react";
-import { usePelicula } from '@/contexts/PeliculaContext';
+import { usePelicula } from '@/contexts/peliculaContext';
 import { useRouter } from "next/navigation";
 import JuegoBase from "@/components/juego/juegoBase";
 

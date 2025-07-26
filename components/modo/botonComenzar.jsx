@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { crearSalaJuego } from "@/services/peliculas/api";
-import { usePelicula } from "@/contexts/PeliculaContext";
+import { usePelicula } from "@/contexts/peliculaContext";
 const BotonComenzar = ({ dificultad }) => {
     
     const { setPelicula } = usePelicula();

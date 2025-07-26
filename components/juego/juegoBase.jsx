@@ -3,20 +3,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
 import { obtenerPelicula, obtenerPeliculaPorSala, obtenerPuntosPorSala } from "@/services/peliculas/api";
-import { usePelicula } from "@/contexts/PeliculaContext";
-
+import { usePelicula } from "@/contexts/peliculaContext";
+import { useRouter } from "next/navigation";
 import ImageSlider from "@/components/juego/ImageSlider";
 import ModalAdivinar from "@/components/juego/modalAdivinar";
 import Timer from "@/components/juego/timer";
 
 const JuegoBase = ({ pelicula = {}, roomId }) => {
-	
+	const router = useRouter();
 	const { setPelicula } = usePelicula();
 	const [verAdivinar, setVerAdivinar] = useState(false);
 	const [visible, setVisible] = useState(false);
-	const [ setVisibleGenero] = useState(false);
-	const [ setVisibleSinopsis] = useState(false);
-	const [ setImagenes] = useState([]);
+	const [visibleGenero, setVisibleGenero] = useState(false);
+	const [visibleSinopsis, setVisibleSinopsis] = useState(false);
+	const [imagenes, setImagenes] = useState([]);
 	const [juegoTerminado, setJuegoTerminado] = useState(false);
 	const [puntos, setPuntos] = useState();
 
@@ -55,7 +55,7 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 				setPelicula({});
 			}
 		} catch (error) {
-			console.log(error);
+
 			setPelicula({});
 		}
 	}
@@ -80,11 +80,9 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 		}
 
 	}
-	/*
 	const handleVerAdivinar = () => {
 		setVerAdivinar(!verAdivinar);
 	}
-		*/
 	const terminoElJuego = async () => {
 		const response = await obtenerPuntosPorSala(roomId);
 		setPuntos(response); 
