@@ -2,7 +2,7 @@
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import ModalFinalDelJuego from "@/components/juego/modalFinalDelJuego";
+//import ModalFinalDelJuego from "@/components/juego/modalFinalDelJuego";
 import { eliminarSala, obtenerPuntosPorSala } from "@/services/peliculas/api";
 const Timer = ({ roomId, terminoElJuego, juegoTerminado, puntos }) => {
   const router = useRouter();
@@ -53,12 +53,7 @@ const Timer = ({ roomId, terminoElJuego, juegoTerminado, puntos }) => {
           {({ remainingTime }) => remainingTime}
         </CountdownCircleTimer>
       </div>
-      {/*isOpen && (
-
-        <div>
-          <ModalFinalDelJuego roomId={roomId} />
-        </div>
-      )*/}
+    
     </div>
   );
 };
