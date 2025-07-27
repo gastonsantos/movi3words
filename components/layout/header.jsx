@@ -1,6 +1,6 @@
 "use client"
 import { useRouter } from "next/navigation"; 
-import { eliminarSala } from "@/services/peliculas/api";
+//import { eliminarSala } from "@/services/peliculas/api";
 
 export default function Navbar() {
   const router = useRouter();
