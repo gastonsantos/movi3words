@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+//import React, {  } from "react";
 import { useRouter } from "next/navigation";
 import { crearSalaJuego } from "@/services/peliculas/api";
 import { usePelicula } from "@/contexts/peliculaContext";

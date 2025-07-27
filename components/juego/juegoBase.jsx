@@ -12,11 +12,11 @@ import Timer from "@/components/juego/timer";
 const JuegoBase = ({ pelicula = {}, roomId }) => {
 
 	const { setPelicula } = usePelicula();
-	const [verAdivinar, setVerAdivinar] = useState(false);
+	//const [verAdivinar, setVerAdivinar] = useState(false);
 	const [visible, setVisible] = useState(false);
 	//const [visibleGenero, setVisibleGenero] = useState(false);
 	//const [visibleSinopsis, setVisibleSinopsis] = useState(false);
-	const [imagenes, setImagenes] = useState([]);
+	//const [imagenes, setImagenes] = useState([]);
 	const [juegoTerminado, setJuegoTerminado] = useState(false);
 	const [puntos, setPuntos] = useState();
 
@@ -27,7 +27,7 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 
 		}
 	}, [pelicula, roomId]);
-
+/*
 	useEffect(() => {
 		setImagenes([...pelicula?.imagenes || []]);
 	}, [pelicula]);
@@ -39,7 +39,7 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 			setImagenes([]);
 		}
 	}, [pelicula]);
-
+*/
 	const obtenerPeliculaDeSala = async () => {
 		setVisible(false);
 		//setVisibleGenero(false);

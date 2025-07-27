@@ -1,7 +1,7 @@
 'use client';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import { useRouter } from "next/navigation";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 //import ModalFinalDelJuego from "@/components/juego/modalFinalDelJuego";
 import { eliminarSala } from "@/services/peliculas/api";
 const Timer = ({ roomId, terminoElJuego, puntos }) => {
@@ -12,25 +12,22 @@ const Timer = ({ roomId, terminoElJuego, puntos }) => {
   useEffect(() => {
     console.log("puntos En timer", puntos);
     //setPuntaje(puntos);
-  }, [puntos]);
+  }, [puntos, roomId]);
 
-  const terminoElTiempo = async () => {
-    try {
+ const terminoElTiempo = async () => {
+  try {
+    console.log("⏱ Terminó el tiempo. Llamando a terminoElJuego...");
+    const puntosObtenidos = await terminoElJuego();
+    console.log("✅ puntosObtenidos:", puntosObtenidos);
 
-     // setIsOpen(true);
-      terminoElJuego();
-      const puntosObtenidos = await terminoElJuego(); 
-      eliminarSalaJuego();
-      router.push(`/page/terminado?puntos=${puntosObtenidos}`);
+    await eliminarSalaJuego();
+    console.log("🧭 Navegando a página final...");
+    router.push(`/page/terminado?puntos=${puntosObtenidos}`);
+  } catch (error) {
+    console.error("❌ Error al terminar el juego", error);
+  }
+};
 
-
-    } catch (error) {
-      console.error("Error al terminar el jeugo", error);
-    }
-
-
-  };
-  
     const eliminarSalaJuego = async () => {
         try {
             await eliminarSala(roomId);
