@@ -2,7 +2,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
-import { obtenerPelicula, obtenerPeliculaPorSala, obtenerPuntosPorSala } from "@/services/peliculas/api";
+import { obtenerPelicula, obtenerPeliculaPorSala, obtenerPuntosPorSala,eliminarSala } from "@/services/peliculas/api";
 import { usePelicula } from "@/contexts/peliculaContext";
 
 import ImageSlider from "@/components/juego/ImageSlider";
@@ -87,8 +87,9 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 		*/
 	const terminoElJuego = async () => {
 		const response = await obtenerPuntosPorSala(roomId);
+		await eliminarSala(roomId);
 		setPuntos(response);
-		setVerAdivinar(false);
+		//setVerAdivinar(false);
 		setJuegoTerminado(true);
 		return response;
 	}

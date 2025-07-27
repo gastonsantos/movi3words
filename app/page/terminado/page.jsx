@@ -1,7 +1,6 @@
-import dynamic from 'next/dynamic'
-
-const TerminadoClient = dynamic(() => import('./TerminadoClient'), { ssr: false })
+'use client'
+import TerminadoClient from "@/components/terminado/terminado";
 
 export default function TerminadoPage() {
-    return <TerminadoClient />
+  return <TerminadoClient />
 }

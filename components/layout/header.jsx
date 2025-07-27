@@ -4,8 +4,8 @@ import { eliminarSala } from "@/services/peliculas/api";
 
 export default function Navbar() {
   const router = useRouter();
-
-   const eliminarSalaJuego = async () => {
+/*
+   const eliminarSalaJuego = async (roomId) => {
         try {
              await eliminarSala(roomId);
         } catch (error) {
@@ -16,6 +16,11 @@ export default function Navbar() {
     await eliminarSalaJuego();
     router.push("/");
   }
+    */
+     const volverAlIniciio= async()=>{
+    
+    router.push("/");
+    }
   return (
     
 
