@@ -1,10 +1,10 @@
 'use client';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+//import React, { useEffect } from "react";
 //import ModalFinalDelJuego from "@/components/juego/modalFinalDelJuego";
 //import { eliminarSala } from "@/services/peliculas/api";
-const Timer = ({ roomId, terminoElJuego, puntos }) => {
+const Timer = ({ /*roomId,*/ terminoElJuego, /*puntos*/ }) => {
   const router = useRouter();
   //const [isOpen, setIsOpen] = useState(false);
   //const [puntaje, setPuntaje] = useState();
