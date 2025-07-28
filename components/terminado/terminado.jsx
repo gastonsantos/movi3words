@@ -11,7 +11,6 @@ const TerminadoClient = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const modalRef = useRef(null);
-    const [isVictory, setIsVictory] = useState(true);
     const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
     const [shareUrl, setShareUrl] = useState("");
 
@@ -36,7 +35,7 @@ const TerminadoClient = () => {
         >
             <div className="fixed inset-0 z-40 bg-black bg-opacity-70 pointer-events-auto"></div>
             <div className="z-50 pointer-events-none fixed inset-0 flex items-center justify-center">
-                {isVictory && windowSize.width > 0 && (
+                {windowSize.width > 0 && (
                     <Confetti
                         width={windowSize.width}
                         height={windowSize.height}
