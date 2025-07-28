@@ -12,17 +12,19 @@ const TerminadoClient = () => {
     const searchParams = useSearchParams();
     const modalRef = useRef(null);
     const [isVictory, setIsVictory] = useState(true);
+    const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+    const [shareUrl, setShareUrl] = useState("");
+
     const rawPuntos = searchParams.get("puntos");
     const puntos = rawPuntos === "undefined" || rawPuntos === null ? 0 : parseInt(rawPuntos, 10);
     const contador = puntos;
 
     useEffect(() => {
-        if (isVictory) {
-            setTimeout(() => {
-                setIsVictory(true); 
-            }, 5000);
+        if (typeof window !== "undefined") {
+            setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+            setShareUrl(window.location.href);
         }
-    }, [isVictory]);
+    }, []);
 
     const volverAJugar = () => {
         router.push("/page/modo");
@@ -30,14 +32,14 @@ const TerminadoClient = () => {
 
     return (
         <section className="min-h-dvh relative ezy__about9 light py-6 md:py-6 bg-cover bg-no-repeat text-zinc-900 dark:text-white"
-			style={{ backgroundImage: "url('/image/Fondo.webp')" }}
-		>
+            style={{ backgroundImage: "url('/image/Fondo.webp')" }}
+        >
             <div className="fixed inset-0 z-40 bg-black bg-opacity-70 pointer-events-auto"></div>
             <div className="z-50 pointer-events-none fixed inset-0 flex items-center justify-center">
-                {isVictory && (
+                {isVictory && windowSize.width > 0 && (
                     <Confetti
-                        width={window.innerWidth}
-                        height={window.innerHeight}
+                        width={windowSize.width}
+                        height={windowSize.height}
                         numberOfPieces={200}
                         gravity={0.2}
                         initialVelocityY={20}
@@ -67,25 +69,27 @@ const TerminadoClient = () => {
                                             Volver a jugar
                                         </button>
 
-                                        <div className="flex flex-col space-y-2 mt-4">
-                                            <a
-                                                href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="w-full bg-blue-600 text-white text-center rounded-md px-5 py-2 hover:bg-blue-700 transition"
-                                            >
-                                                Compartir en Facebook
-                                            </a>
+                                        {shareUrl && (
+                                            <div className="flex flex-col space-y-2 mt-4">
+                                                <a
+                                                    href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="w-full bg-blue-600 text-white text-center rounded-md px-5 py-2 hover:bg-blue-700 transition"
+                                                >
+                                                    Compartir en Facebook
+                                                </a>
 
-                                            <a
-                                                href={`https://twitter.com/intent/tweet?text=¡Conseguí ${contador} puntos en este juego! ${window.location.href}`}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="w-full bg-sky-500 text-white text-center rounded-md px-5 py-2 hover:bg-sky-600 transition"
-                                            >
-                                                Compartir en X (Twitter)
-                                            </a>
-                                        </div>
+                                                <a
+                                                    href={`https://twitter.com/intent/tweet?text=¡Conseguí ${contador} puntos en este juego! ${shareUrl}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="w-full bg-sky-500 text-white text-center rounded-md px-5 py-2 hover:bg-sky-600 transition"
+                                                >
+                                                    Compartir en X (Twitter)
+                                                </a>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
