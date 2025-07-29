@@ -1,6 +1,6 @@
 'use client'
 
-import { useSearchParams } from "next/navigation";
+
 import React, { useState, useRef, useEffect } from "react";
 import Draggable from "react-draggable";
 import Confetti from "react-confetti";
@@ -9,21 +9,17 @@ import { useRouter } from "next/navigation";
 
 const TerminadoClient = () => {
     const router = useRouter();
-    const searchParams = useSearchParams();
-    const modalRef = useRef(null);
-    const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+    const [puntos, setPuntos] = useState();
     const [shareUrl, setShareUrl] = useState("");
-
-    const rawPuntos = searchParams.get("puntos");
-    const puntos = rawPuntos === "undefined" || rawPuntos === null ? 0 : parseInt(rawPuntos, 10);
-    const contador = puntos;
-
+     const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+     const modalRef = useRef(null);
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-            setShareUrl(window.location.href);
-        }
+        const puntos1 = parseInt(localStorage.getItem("puntos"), 10) || 0;  
+         const currentUrl = window.location.href;
+        setShareUrl(currentUrl);
+        setPuntos(puntos1);
     }, []);
+
 
     const volverAJugar = () => {
         router.push("/page/modo");
@@ -35,7 +31,7 @@ const TerminadoClient = () => {
         >
             <div className="fixed inset-0 z-40 bg-black bg-opacity-70 pointer-events-auto"></div>
             <div className="z-50 pointer-events-none fixed inset-0 flex items-center justify-center">
-                {windowSize.width > 0 && (
+                { (
                     <Confetti
                         width={windowSize.width}
                         height={windowSize.height}
@@ -55,7 +51,7 @@ const TerminadoClient = () => {
                             <div className="absolute inset-0 bg-black bg-opacity-75 rounded-lg"></div>
                             <div className="relative z-10 modal-header cursor-move flex flex-col items-center justify-center w-full p-1">
                                 <h2 className="text-lg text-white font-semibold">Puntos</h2>
-                                <h2>{contador}</h2>
+                                <h2>{puntos}</h2>
                                 <div className="flex flex-col items-center justify-center">
                                     <div className="mt-4">
                                         <p>-------------------</p>
@@ -80,7 +76,7 @@ const TerminadoClient = () => {
                                                 </a>
 
                                                 <a
-                                                    href={`https://twitter.com/intent/tweet?text=¡Conseguí ${contador} puntos en este juego! ${shareUrl}`}
+                                                    href={`https://twitter.com/intent/tweet?text=¡Conseguí ${puntos} puntos en este juego! ${shareUrl}`}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="w-full bg-sky-500 text-white text-center rounded-md px-5 py-2 hover:bg-sky-600 transition"

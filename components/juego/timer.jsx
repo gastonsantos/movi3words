@@ -8,32 +8,34 @@ const Timer = ({ /*roomId,*/ terminoElJuego, /*puntos*/ }) => {
   const router = useRouter();
   //const [isOpen, setIsOpen] = useState(false);
   //const [puntaje, setPuntaje] = useState();
-/*
-  useEffect(() => {
-    console.log("puntos En timer", puntos);
-    //setPuntaje(puntos);
-  }, [puntos, roomId]);
-*/
- const terminoElTiempo = async () => {
-  try {
-   
-    const puntosObtenidos = await terminoElJuego();
-    console.log("Puntos: ", puntosObtenidos);
-    router.push(`/page/terminado?puntos=${puntosObtenidos}`);
-  } catch (error) {
-    console.error("Error al terminar el juego", error);
-  }
-};
+  /*
+    useEffect(() => {
+      console.log("puntos En timer", puntos);
+      //setPuntaje(puntos);
+    }, [puntos, roomId]);
+  */
 
-/*
-    const eliminarSalaJuego = async () => {
-        try {
-            await eliminarSala(roomId);
-        } catch (error) {
-            console.error("Error al eliminar Sala", error);
-        }
-    };
-*/
+  const terminoElTiempo = async () => {
+    try {
+
+      const puntosObtenidos = await terminoElJuego();
+      localStorage.setItem("puntos", puntosObtenidos);
+    
+      router.push(`/page/terminado`);
+    } catch (error) {
+      console.error("Error al terminar el juego", error);
+    }
+  };
+
+  /*
+      const eliminarSalaJuego = async () => {
+          try {
+              await eliminarSala(roomId);
+          } catch (error) {
+              console.error("Error al eliminar Sala", error);
+          }
+      };
+  */
   return (
     <div>
       <div className='absolute mt-10 left-1/2 z-5 transform -translate-x-1/2 -translate-y-1/2'>
@@ -48,7 +50,7 @@ const Timer = ({ /*roomId,*/ terminoElJuego, /*puntos*/ }) => {
           {({ remainingTime }) => remainingTime}
         </CountdownCircleTimer>
       </div>
-    
+
     </div>
   );
 };
