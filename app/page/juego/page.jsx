@@ -13,7 +13,7 @@ const SalaPrincipal = () => {
 
     const [stompClient, setStompClient] = useState(null);
     const router = useRouter();
-  
+   
     useEffect(() => {
         const socket = new SockJS("http://localhost:8080/chat-socket");
         const client = new Client({

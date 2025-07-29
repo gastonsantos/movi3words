@@ -31,13 +31,8 @@ const DraggableModal = ({ roomId, buscarPelicula, usoAyuda, juegoTerminado }) =>
         }
     };
     useEffect(() => {
-        /*
-        const HandlebuscarPelicula = () => {
-            buscarPelicula();
-
-        }
-            */
-         buscarPelicula();
+     
+        //buscarPelicula();
         handleObtenerPuntosDeSala();
 
     }, [roomId]);

@@ -25,14 +25,8 @@ const ChatRoom = () => {
 
 
     <div className="mt-16">
-     
-       
-
-       <JuegoBase pelicula={pelicula} roomId={roomId}/>
-
-
-     
-     
+         
+       <JuegoBase pelicula={pelicula} roomId={roomId}/>    
 
     </div>
 

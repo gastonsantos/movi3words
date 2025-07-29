@@ -11,39 +11,20 @@ import Timer from "@/components/juego/timer";
 
 const JuegoBase = ({ pelicula = {}, roomId }) => {
 
-	const { setPelicula } = usePelicula();
-	//const [verAdivinar, setVerAdivinar] = useState(false);
+	const { setPelicula } = usePelicula();	
 	const [visible, setVisible] = useState(false);
-	//const [visibleGenero, setVisibleGenero] = useState(false);
-	//const [visibleSinopsis, setVisibleSinopsis] = useState(false);
-	//const [imagenes, setImagenes] = useState([]);
 	const [juegoTerminado, setJuegoTerminado] = useState(false);
 	const [puntos, setPuntos] = useState();
-
 
 	useEffect(() => {
 		if (!pelicula && roomId) {
 			obtenerPeliculaDeSala();
-
 		}
 	}, [pelicula, roomId]);
-/*
-	useEffect(() => {
-		setImagenes([...pelicula?.imagenes || []]);
-	}, [pelicula]);
 
-	useEffect(() => {
-		if (Array.isArray(pelicula?.imagenes)) {
-			setImagenes(pelicula.imagenes);
-		} else {
-			setImagenes([]);
-		}
-	}, [pelicula]);
-*/
 	const obtenerPeliculaDeSala = async () => {
 		setVisible(false);
-		//setVisibleGenero(false);
-		//setVisibleSinopsis(false);
+
 		try {
 			const response = await obtenerPeliculaPorSala(roomId);
 
@@ -62,8 +43,6 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 
 	const handleBuscarPelicula = async () => {
 		setVisible(false);
-		//setVisibleGenero(false);
-		//setVisibleSinopsis(false);
 		try {
 			const response = await obtenerPelicula(roomId);
 
@@ -80,16 +59,12 @@ const JuegoBase = ({ pelicula = {}, roomId }) => {
 		}
 
 	}
-	/*
-	const handleVerAdivinar = () => {
-		setVerAdivinar(!verAdivinar);
-	}
-		*/
+
 	const terminoElJuego = async () => {
 		const response = await obtenerPuntosPorSala(roomId);
 		await eliminarSala(roomId);
 		setPuntos(response);
-		//setVerAdivinar(false);
+		
 		setJuegoTerminado(true);
 		return response;
 	}
