@@ -14,6 +14,7 @@ const TerminadoClient = () => {
      const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
      const modalRef = useRef(null);
     useEffect(() => {
+        setWindowSize({ width: 0, height: 0 });
         const puntos1 = parseInt(localStorage.getItem("puntos"), 10) || 0;  
          const currentUrl = window.location.href;
         setShareUrl(currentUrl);
